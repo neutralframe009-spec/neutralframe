@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Photograph — Neutral Frame</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<main class="nf-page">
+
+  <header class="nf-bar">
+    <a href="index.html" class="logo">Neutral Frame<span class="dot">.</span></a>
+    <span>INDEX / PHOTOGRAPH</span>
+  </header>
+
+  <section class="idx-header">
+    <div>
+      <div class="en-meta">CONTENTS — PHOTOGRAPH</div>
+      <div class="idx-title-row">
+        <div class="idx-count" id="idxCount">021</div>
+        <div class="idx-label">編 — 街と風景の記録</div>
+      </div>
+    </div>
+    <div class="idx-brand-stack">N E U T R A L<br>F R A M E</div>
+  </section>
+
+  <section class="idx-list" id="idxList">
+    <a class="idx-row" href="photograph-021.html" data-photo="021" data-meta="NAGANO · 2026.04.17">
+      <div class="idx-no">021</div>
+      <div>
+        <div class="idx-title">湖岸を歩く</div>
+        <div class="idx-sub">At the lake — NAGANO</div>
+      </div>
+      <div class="idx-date">2026.04.17</div>
+    </a>
+    <a class="idx-row" href="photograph-020.html" data-photo="020" data-meta="TOKYO · 2026.04.09">
+      <div class="idx-no">020</div>
+      <div>
+        <div class="idx-title">窓の白</div>
+        <div class="idx-sub">White of the window — TOKYO</div>
+      </div>
+      <div class="idx-date">2026.04.09</div>
+    </a>
+    <a class="idx-row" href="#" data-photo="019" data-meta="AOMORI · 2026.03.22">
+      <div class="idx-no">019</div>
+      <div>
+        <div class="idx-title">雪が止んだ日</div>
+        <div class="idx-sub">The day snow stopped — AOMORI</div>
+      </div>
+      <div class="idx-date">2026.03.22</div>
+    </a>
+    <a class="idx-row" href="#" data-photo="018" data-meta="TOKYO · 2026.03.11">
+      <div class="idx-no">018</div>
+      <div>
+        <div class="idx-title">朝の路地</div>
+        <div class="idx-sub">Morning alley — TOKYO</div>
+      </div>
+      <div class="idx-date">2026.03.11</div>
+    </a>
+    <a class="idx-row" href="#" data-photo="017" data-meta="SHIZUOKA · 2026.02.28">
+      <div class="idx-no">017</div>
+      <div>
+        <div class="idx-title">海岸線 II</div>
+        <div class="idx-sub">Coastline II — SHIZUOKA</div>
+      </div>
+      <div class="idx-date">2026.02.28</div>
+    </a>
+    <a class="idx-row" href="#" data-photo="016" data-meta="TOKYO · 2026.02.14">
+      <div class="idx-no">016</div>
+      <div>
+        <div class="idx-title">コンクリート壁</div>
+        <div class="idx-sub">Concrete — TOKYO</div>
+      </div>
+      <div class="idx-date">2026.02.14</div>
+    </a>
+    <a class="idx-row" href="#" data-photo="015" data-meta="HANEDA · 2026.01.30">
+      <div class="idx-no">015</div>
+      <div>
+        <div class="idx-title">空港の待合</div>
+        <div class="idx-sub">The waiting room — HANEDA</div>
+      </div>
+      <div class="idx-date">2026.01.30</div>
+    </a>
+    <a class="idx-row" href="#" data-photo="014" data-meta="NAGANO · 2026.01.12">
+      <div class="idx-no">014</div>
+      <div>
+        <div class="idx-title">木立</div>
+        <div class="idx-sub">Thicket — NAGANO</div>
+      </div>
+      <div class="idx-date">2026.01.12</div>
+    </a>
+    <a class="idx-row" href="#" data-photo="013" data-meta="TOKYO · 2025.12.29">
+      <div class="idx-no">013</div>
+      <div>
+        <div class="idx-title">年末の川</div>
+        <div class="idx-sub">River, year-end — TOKYO</div>
+      </div>
+      <div class="idx-date">2025.12.29</div>
+    </a>
+    <a class="idx-row" href="#" data-photo="012" data-meta="HOKKAIDO · 2025.12.10">
+      <div class="idx-no">012</div>
+      <div>
+        <div class="idx-title">北へ</div>
+        <div class="idx-sub">Going north — HOKKAIDO</div>
+      </div>
+      <div class="idx-date">2025.12.10</div>
+    </a>
+  </section>
+
+  <nav class="nf-nav">
+    <span class="left" id="idxRange">INDEX · 001 — 021</span>
+    <span class="links">
+      <a href="photograph.html" class="current">PHOTOGRAPH</a>
+      <a href="about.html">ABOUT</a>
+      <a href="lab.html">LAB</a>
+      <a href="note.html">NOTE</a>
+    </span>
+  </nav>
+</main>
+
+<script defer>
+/* PHOTOGRAPH index — runtime only (no build step, no manifest).
+
+   For every `.idx-row[data-photo="NNN"]` the JS tries to fetch
+   `photograph-NNN.html`:
+
+     - 404 / network error  → the row is hidden (`display: none`).
+     - otherwise            → DOMParser reads the detail page and fills:
+         .idx-title ← .art-title-ja / .p2-title-ja
+         .idx-sub   ← .art-title-en / .p2-title-en  +  ' — ' + PLACE
+         .idx-date  ← YYYY.MM.DD (from the detail page's [data-photo-file])
+         thumbnail  ← the same image file
+
+   The header count (`#idxCount`) and footer range (`#idxRange`) are
+   derived from the NNN values whose fetches succeeded.
+
+   Hardcoded values already inside each row are used as fallbacks while
+   the fetch is in flight, so the page degrades gracefully even if the
+   browser blocks fetch() (e.g. strict `file://` mode — open via a local
+   server or Safari for full rendering). */
+(function(){
+  var DIR = 'images/photograph/';
+  var NAME_RE = /^(\d{3})_(\d{2})_([A-Za-z]+)_(\d{4})_(\d{2})(\d{2})\.jpg$/i;
+
+  function stripJa(text){
+    return (text || '').replace(/[\s\u3000]+/g, '');
+  }
+  function stripEn(el){
+    if (!el) return '';
+    var clone = el.cloneNode(true);
+    // Drop the decorative trailing period.
+    clone.querySelectorAll('.dot').forEach(function(n){ n.remove(); });
+    return (clone.textContent || '').replace(/\s+/g, ' ').trim();
+  }
+
+  function parseDetail(html){
+    var doc = new DOMParser().parseFromString(html, 'text/html');
+    if (!doc) return null;
+    var jaEl = doc.querySelector('.art-title-ja, .p2-title-ja');
+    var enEl = doc.querySelector('.art-title-en, .p2-title-en');
+    var figEl = doc.querySelector('[data-photo-file]');
+
+    var file = figEl ? figEl.getAttribute('data-photo-file') : '';
+    var place = '', y = '', mo = '', d = '';
+    if (file) {
+      var m = NAME_RE.exec(file);
+      if (m) { place = m[3].toUpperCase(); y = m[4]; mo = m[5]; d = m[6]; }
+    }
+    return {
+      ja:    stripJa(jaEl && jaEl.textContent),
+      en:    stripEn(enEl),
+      file:  file,
+      place: place,
+      y: y, mo: mo, d: d
+    };
+  }
+
+  function applyToRow(row, data){
+    var titleEl = row.querySelector('.idx-title');
+    if (titleEl && data.ja) titleEl.textContent = data.ja;
+
+    var subEl = row.querySelector('.idx-sub');
+    if (subEl) {
+      var en    = data.en || '';
+      var place = data.place || '';
+      if (en && place)      subEl.textContent = en + ' — ' + place;
+      else if (en)          subEl.textContent = en;
+      else if (place)       subEl.textContent = place;
+    }
+
+    var dateEl = row.querySelector('.idx-date');
+    if (dateEl && data.y) dateEl.textContent = data.y + '.' + data.mo + '.' + data.d;
+
+    var thumb = document.createElement('span');
+    thumb.className = 'idx-row-thumb';
+    if (data.file) {
+      var img = document.createElement('img');
+      img.alt = '';
+      img.loading = 'lazy';
+      img.src = DIR + data.file;
+      img.onerror = function(){
+        thumb.classList.remove('has-image');
+        if (img.parentNode) thumb.removeChild(img);
+      };
+      thumb.appendChild(img);
+      thumb.classList.add('has-image');
+    }
+    row.appendChild(thumb);
+  }
+
+  function init(){
+    var rows = Array.prototype.slice.call(document.querySelectorAll('#idxList .idx-row'));
+    if (!rows.length) return;
+
+    var countEl = document.getElementById('idxCount');
+    var rangeEl = document.getElementById('idxRange');
+    var pad = function(v){ return ('000' + v).slice(-3); };
+
+    var liveNos = [];
+
+    var jobs = rows.map(function(row){
+      var no = row.getAttribute('data-photo');
+      if (!no) return Promise.resolve();
+
+      return fetch('photograph-' + no + '.html', { method: 'GET' })
+        .then(function(res){
+          if (!res.ok) throw new Error('not found');
+          return res.text();
+        })
+        .then(function(html){
+          var data = parseDetail(html);
+          if (!data) throw new Error('parse failed');
+          row.setAttribute('href', 'photograph-' + no + '.html');
+          applyToRow(row, data);
+          liveNos.push(no);
+        })
+        .catch(function(){
+          row.style.display = 'none';
+          row.setAttribute('aria-hidden', 'true');
+        });
+    });
+
+    Promise.all(jobs).then(function(){
+      var nums = liveNos.map(function(n){ return parseInt(n, 10); })
+                        .filter(function(v){ return !isNaN(v); });
+      if (nums.length) {
+        var min = Math.min.apply(null, nums);
+        var max = Math.max.apply(null, nums);
+        if (countEl) countEl.textContent = pad(max);
+        if (rangeEl) rangeEl.textContent = 'INDEX · ' + pad(min) + ' — ' + pad(max);
+      } else {
+        if (countEl) countEl.textContent = '000';
+        if (rangeEl) rangeEl.textContent = 'INDEX · —';
+      }
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init, { once: true });
+  } else {
+    init();
+  }
+})();
+</script>
+</body>
+</html>
