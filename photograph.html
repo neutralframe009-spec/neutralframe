@@ -12,10 +12,24 @@
 <meta name="theme-color" content="#ffffff">
 <meta name="apple-mobile-web-app-title" content="Neutral Frame">
 <title>Photograph — Neutral Frame</title>
+<meta name="description" content="写真とエッセイ、断片の記録">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Neutral Frame">
+<meta property="og:title" content="Photograph — Neutral Frame">
+<meta property="og:description" content="写真とエッセイ、断片の記録">
+<meta property="og:url" content="https://neutralframe.net/photograph.html">
+<meta property="og:image" content="https://neutralframe.net/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Neutral Frame">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Photograph — Neutral Frame">
+<meta name="twitter:description" content="写真とエッセイ、断片の記録">
+<meta name="twitter:image" content="https://neutralframe.net/assets/og-image.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/styles.v10.css">
+<link rel="stylesheet" href="assets/styles.v13.css">
 </head>
 <body>
 <main class="nf-page">
@@ -162,6 +176,48 @@
       thumb.classList.add('has-image');
     }
     row.appendChild(thumb);
+    var imgEl = thumb.querySelector('img');
+    if (imgEl) imgEl.addEventListener('load', scheduleThumbLayout);
+  }
+
+  var THUMB_MQ = window.matchMedia('(max-width: 720px)');
+
+  function textOverlapsThumb(row, thumbW){
+    row.classList.remove('idx-row--no-thumb');
+    void row.offsetHeight;
+    var thumbLeft = row.getBoundingClientRect().right - thumbW;
+    var texts = row.querySelectorAll('.idx-title, .idx-sub, .idx-date');
+    for (var i = 0; i < texts.length; i++) {
+      var el = texts[i];
+      if (el.scrollWidth > el.clientWidth + 1) return true;
+      if (el.getBoundingClientRect().right > thumbLeft + 1) return true;
+    }
+    return false;
+  }
+
+  function adjustIdxThumbs(){
+    var rows = document.querySelectorAll('#idxList .idx-row');
+    if (!THUMB_MQ.matches) {
+      rows.forEach(function(row){ row.classList.remove('idx-row--no-thumb'); });
+      return;
+    }
+    rows.forEach(function(row){
+      var thumb = row.querySelector('.idx-row-thumb.has-image');
+      if (!thumb || row.style.display === 'none') {
+        row.classList.remove('idx-row--no-thumb');
+        return;
+      }
+      var thumbW = parseFloat(getComputedStyle(row).getPropertyValue('--idx-thumb-w')) || 112;
+      if (textOverlapsThumb(row, thumbW)) {
+        row.classList.add('idx-row--no-thumb');
+      }
+    });
+  }
+
+  var thumbLayoutTimer;
+  function scheduleThumbLayout(){
+    clearTimeout(thumbLayoutTimer);
+    thumbLayoutTimer = setTimeout(adjustIdxThumbs, 50);
   }
 
   function init(){
@@ -208,7 +264,19 @@
         if (countEl) countEl.textContent = '000';
         if (rangeEl) rangeEl.textContent = 'INDEX · —';
       }
+      scheduleThumbLayout();
     });
+
+    window.addEventListener('resize', scheduleThumbLayout);
+    if (THUMB_MQ.addEventListener) {
+      THUMB_MQ.addEventListener('change', scheduleThumbLayout);
+    } else if (THUMB_MQ.addListener) {
+      THUMB_MQ.addListener(scheduleThumbLayout);
+    }
+    if (window.ResizeObserver) {
+      var list = document.getElementById('idxList');
+      if (list) new ResizeObserver(scheduleThumbLayout).observe(list);
+    }
   }
 
   if (document.readyState === 'loading') {
