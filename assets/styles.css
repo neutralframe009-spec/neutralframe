@@ -115,8 +115,9 @@ body { animation: nf-fadein 280ms ease-out both; }
 @media (min-width: 768px) {
   .top-shell {
     grid-template-columns: minmax(0, 1fr);
-    grid-template-rows: auto 1fr auto;
-    padding: 36px 40px 42px;
+    grid-template-rows: auto auto auto;
+    min-height: auto;
+    padding: 36px 40px 48px;
   }
   .top-grid {
     grid-column: 1 / -1;
@@ -503,20 +504,18 @@ body { animation: nf-fadein 280ms ease-out both; }
 @media (max-width: 767px) {
   /* TOP — 767px以下は単列（スマートフォン） */
   .top-shell {
-    padding: 24px 40px 72px;
-    padding-bottom: max(72px, env(safe-area-inset-bottom, 0px));
-    min-height: 100dvh;
-    display: flex;
-    flex-direction: column;
+    padding: 24px 40px 48px;
+    padding-bottom: max(48px, env(safe-area-inset-bottom, 0px));
+    min-height: auto;
+    display: grid;
+    grid-template-rows: auto auto auto;
   }
   .top-shell > .nf-bar { margin-bottom: 20px; }
   .top-shell > .nf-nav {
-    margin-top: auto;
-    flex-shrink: 0;
+    margin-top: 160px;
     padding-top: 14px;
     justify-content: flex-end;
   }
-  .top-shell > .top-grid { margin-bottom: 56px; }
   .top-shell > .nf-nav .links {
     width: 100%;
     gap: clamp(44px, 11vw, 72px);
@@ -538,13 +537,15 @@ body { animation: nf-fadein 280ms ease-out both; }
   /* Smartphone */
   .nf-page { padding: 24px 22px 32px; }
   .top-shell {
-    padding: 22px 22px 80px;
-    padding-bottom: max(80px, calc(24px + env(safe-area-inset-bottom, 0px)));
+    padding: 22px 22px 32px;
+    padding-bottom: max(32px, env(safe-area-inset-bottom, 0px));
     min-height: auto;
   }
   .top-shell > .nf-bar { margin-bottom: 16px; }
-  .top-shell > .nf-nav { padding-top: 14px; }
-  .top-shell > .top-grid { margin-bottom: 72px; }
+  .top-shell > .nf-nav {
+    padding-top: 14px;
+    margin-top: 112px;
+  }
 
   .nf-bar { margin-bottom: 28px; font-size: 10px; letter-spacing: 0.22em; }
   .nf-bar .logo { font-size: 15px; }
