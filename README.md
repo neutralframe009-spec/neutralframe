@@ -52,11 +52,12 @@ Cursor など AI 支援の開発環境で継続運用・拡張するための設
 /
 ├── index.html                         # TOP
 ├── photograph.html                    # PHOTOGRAPH インデックス（目次）
-├── photograph-021.html                # 個別記事（Pattern 1: Single）
-├── photograph-020.html                # 個別記事（Pattern 2: Split）
+├── photograph-003.html                # 個別記事（Pattern 1: Single）
+├── photograph-002.html                # 個別記事（Pattern 2: Split）
+├── photograph-001.html                # 個別記事（Pattern 2: Split）
 ├── about.html                         # ABOUT（プロフィール・機材）
 ├── lab.html                           # LAB（AI協調制作・自動化などの実験記録）
-├── note.html                          # NOTE（外部 note.com への導線＋近況ログ）
+├── essay.html                         # ESSAY（外部 note.com への導線）
 ├── assets/
 │   ├── styles.css                     # 全ページ共通CSS（唯一のスタイル定義）
 │   ├── top-slideshow.js               # TOP のクロスフェードスライドショー（詳細ページを都度 fetch）
@@ -65,8 +66,9 @@ Cursor など AI 支援の開発環境で継続運用・拡張するための設
 │   ├── README.md
 │   └── photograph/                    # ★サイト全体で共有する唯一の画像プール
 │       ├── README.md                  # 命名規則・運用
-│       ├── 021_01_tokyo_2026_0417.jpg
-│       ├── 020_01_tokyo_2025_1110.jpg
+│       ├── 003_01_tokyo_2026_0417.jpg
+│       ├── 002_01_tokyo_2025_1110.jpg
+│       ├── 001_01_aomori_2026_0322.jpg
 │       └── ...
 └── README.md                          # このファイル
 ```
@@ -188,15 +190,15 @@ Cursor など AI 支援の開発環境で継続運用・拡張するための設
 - 右：現在地を示すラベル（例：`INDEX / PHOTOGRAPH`）
 
 #### フッター (`.nf-nav`)
-- 左：そのページ固有の補助情報（例：`INDEX · 001 — 021`）
-- 右：グローバルナビ（PHOTOGRAPH / ABOUT / LAB / NOTE）
+- 左：そのページ固有の補助情報（例：`INDEX · 001 — 003`）
+- 右：グローバルナビ（PHOTOGRAPH / ESSAY / LAB / ABOUT）
 - 現在ページは `class="current"` を付与（色が濃くなる）
 
 ### 5.2 `index.html` — TOP
 
-- 単独レイアウト。左に 4:3 写真＋キャプション、中央に縦組みコピー「削ぎ落としても、残るもの。」、右に極太ロゴ・短いブランド説明文
+- 単独レイアウト。**768px 以上**は左に 4:3 写真＋キャプション、右に極太ロゴ・短いブランド説明文（2カラム）
+- **767px 以下**は写真→ロゴの単列（スマートフォン）
 - `.nf-paper` が乗る（紙感）
-- SPでは全体が縦積みに、縦組みは横書きにフォールバック
 - 左の写真枠は `images/photograph/` 内の各記事の代表写真（`_01_`）をクロスフェードで巡回する。画像切替と同じタイミングでキャプション（`FIG. NNN` / `PLACE — YYYY.MM`）も更新される
 - 静止時間 6.5 秒 + フェード 4.4 秒（1 サイクル ≒ 約 10 秒）。`prefers-reduced-motion: reduce` では瞬時切替にフォールバック
 
@@ -223,18 +225,18 @@ Cursor など AI 支援の開発環境で継続運用・拡張するための設
 
 2種類のレイアウトパターンを使い分け：
 
-#### Pattern 1: Single (`photograph-021.html` が雛形)
+#### Pattern 1: Single (`photograph-003.html` が雛形)
 - 和文タイトル（主・大）→ 英字サブ（小・斜体）→ 4:3 写真 → 2カラム（左：メタ情報 / 右：本文テキストエリア）
 - 本文は複数段落可。`<p>` で段落区切り、段落間マージンは自動で開く
 - 写真下部にも余白を確保
 
-#### Pattern 2: Split (`photograph-020.html` が雛形)
+#### Pattern 2: Split (`photograph-002.html` が雛形)
 - 左：4:3 写真 / 右：**横書き**テキストエリア
 - 和文タイトル（主・大）→ 英字サブ（小・斜体）→ 本文（横書き、段落分け可）
 - `<strong>` など装飾は使わない
 
 記事追加の手順（ビルドは不要）：
-1. 雛形（021 か 020）をコピーして `photograph-NNN.html` にリネーム
+1. 雛形（003 か 002）をコピーして `photograph-NNN.html` にリネーム
 2. ファイル名・タイトル・本文を書き換える
 3. 写真を `images/photograph/NNN_FF_place_YYYY_MMDD.jpg` として置く
 4. 詳細ページの `data-photo-file="NNN_FF_place_YYYY_MMDD.jpg"` を今置いた写真のファイル名に合わせる
@@ -267,10 +269,10 @@ Safari で開くのが一番手数が少ない。
 - `.lab-list` 内の `.lab-row`：No. / カテゴリ（WEB / AUTOMATION / AI / NOTE 等）/ タイトル＋英題 / 日付
 - 個別エントリに遷移するより、まず一覧で見せる方針（個別ページは必要に応じて追加）
 
-### 5.7 `note.html` — NOTE
+### 5.7 `essay.html` — ESSAY
 
-- 左：外部 note.com への太い導線リンク
-- 右：最近書いた記事のタイトル一覧（リンクなしのログ表示でも良い）
+- 左：ESSAY. 見出しと説明文
+- 右：外部 note.com（https://note.com/heix3）への導線リンク（新規タブ）
 - 本サイトに書かない種類の文章（まとまった長文・エッセイ）はすべて note 側
 
 ---
@@ -281,9 +283,9 @@ Safari で開くのが一番手数が少ない。
 
 | 幅 | 対象 | 主な挙動 |
 |-----|------|---------|
-| **〜720px** | スマートフォン | TOPは縦積み、縦組み→横書き、INDEXは2段組、ホバー写真は非表示 |
-| **721〜1024px** | タブレット（**iPad mini 優先**） | 余白と縦組みは維持、写真・ロゴのバランス再調整 |
-| **1025px〜** | PC | 設計上のフルレイアウト |
+| **〜767px** | スマートフォン | TOPは単列（写真→ロゴ）。フッターは画面下端に寄せる |
+| **768px〜1024px** | タブレット・狭いPCウィンドウ | TOPは2カラム（PCと同じ構成）。INDEX等はタブレット向け余白調整 |
+| **1025px〜** | PC（広いウィンドウ） | 同上。設計上のフルレイアウト |
 
 モバイルファーストではなく、**すべてのデバイスで同等の体験** を目指す。
 
@@ -293,8 +295,8 @@ Safari で開くのが一番手数が少ない。
 
 ### 7.1 新しい写真記事を追加
 
-1. `photograph-021.html`（Single）か `photograph-020.html`（Split）を複製
-2. ファイル名を `photograph-022.html` のように変更
+1. `photograph-003.html`（Single）か `photograph-002.html`（Split）を複製
+2. ファイル名を `photograph-004.html` のように変更
 3. 先頭の `<title>` を更新（ヘッダ右のメタは現仕様では非表示）
 4. タイトル（英字・和文）・本文を差し替え
 5. 写真を `images/photograph/022_01_place_YYYY_MMDD.jpg` として配置

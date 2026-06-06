@@ -10,7 +10,7 @@ XXX_FF_place_YYYY_MMDD.jpg
 
 | 記号     | 内容                                                        | 例         |
 | -------- | ----------------------------------------------------------- | ---------- |
-| `XXX`    | 記事番号（3 桁ゼロパディング / 001〜999）                   | `021`      |
+| `XXX`    | 記事番号（3 桁ゼロパディング / 001〜999）                   | `003`      |
 | `FF`     | 同ページ内の写真番号（2 桁ゼロパディング / 01〜99）         | `01`       |
 | `place`  | 半角英字のみ（小文字で保存、表示時に大文字化）              | `tokyo`    |
 | `YYYY`   | 4 桁の年                                                    | `2026`     |
@@ -18,9 +18,9 @@ XXX_FF_place_YYYY_MMDD.jpg
 
 ### 例
 
-- `021_01_tokyo_2026_0417.jpg`
-- `021_02_tokyo_2026_0417.jpg`（同ページ 2 枚目）
-- `023_01_nagano_2026_0509.jpg`
+- `003_01_tokyo_2026_0417.jpg`
+- `003_02_tokyo_2026_0417.jpg`（同ページ 2 枚目）
+- `001_01_aomori_2026_0322.jpg`
 
 この規則に合致しないファイルは、どの記事からも参照されない「未使用画像」として扱われます。
 
@@ -37,7 +37,7 @@ XXX_FF_place_YYYY_MMDD.jpg
 各詳細ページでは、使う写真のファイル名をそのまま `data-photo-file` に書きます。地名・日付は画像ファイル名から自動展開されます。
 
 ```html
-<figure id="fig-main" class="p1-figure" data-photo-file="021_01_tokyo_2026_0417.jpg">
+<figure id="fig-main" class="p1-figure" data-photo-file="003_01_tokyo_2026_0417.jpg">
   <div class="top-photo"><img alt=""></div>
   <figcaption class="p1-fig-caption">
     <div class="p1-fig-meta">
@@ -56,7 +56,7 @@ XXX_FF_place_YYYY_MMDD.jpg
 
 | 表示箇所                           | 出力例             | 由来                      |
 | ---------------------------------- | ------------------ | ------------------------- |
-| ヘッダ `N° XXX`                     | `N° 021`          | `XXX`                     |
+| ヘッダ `N° XXX`                     | `N° 003`          | `XXX`                     |
 | ヘッダ `PLACE`                      | `TOKYO`            | `place`（大文字化）       |
 | ヘッダ `YYYY.MM.DD`                 | `2026.04.17`       | `YYYY` + `MMDD`           |
 | キャプション `FIG. FF`              | `FIG. 01`          | `FF`                      |
