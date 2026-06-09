@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="assets/favicon-16.png" sizes="16x16" type="image/png">
+<link rel="shortcut icon" href="assets/favicon.ico">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png" sizes="180x180">
+<link rel="manifest" href="assets/site.webmanifest">
+<meta name="theme-color" content="#ffffff">
+<meta name="apple-mobile-web-app-title" content="Neutral Frame">
+<title>Photograph — Neutral Frame</title>
+<meta name="description" content="写真とエッセイ、断片の記録">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Neutral Frame">
+<meta property="og:title" content="Photograph — Neutral Frame">
+<meta property="og:description" content="写真とエッセイ、断片の記録">
+<meta property="og:url" content="https://neutralframe.net/photograph.html">
+<meta property="og:image" content="https://neutralframe.net/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Neutral Frame">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Photograph — Neutral Frame">
+<meta name="twitter:description" content="写真とエッセイ、断片の記録">
+<meta name="twitter:image" content="https://neutralframe.net/assets/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.v15.css">
+</head>
+<body>
+<main class="nf-page">
+
+  <header class="nf-bar">
+    <a href="index.html" class="logo">Neutral Frame<span class="dot">.</span></a>
+    <span>INDEX / PHOTOGRAPH</span>
+  </header>
+
+  <section class="idx-header">
+    <div>
+      <div class="en-meta">CONTENTS — PHOTOGRAPH</div>
+      <div class="idx-title-row">
+        <div class="idx-count" id="idxCount">003</div>
+        <div class="idx-label">編 — 街と風景の記録</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="idx-list" id="idxList">
+    <a class="idx-row" href="photograph/003.html" data-photo="003" data-meta="TOKYO · 2026.04.17">
+      <div class="idx-no">003</div>
+      <div>
+        <div class="idx-title">湖岸を歩く</div>
+        <div class="idx-sub">At the lake — TOKYO</div>
+      </div>
+      <div class="idx-date">2026.04.17</div>
+    </a>
+    <a class="idx-row" href="photograph/002.html" data-photo="002" data-meta="TOKYO · 2020.01.28">
+      <div class="idx-no">002</div>
+      <div>
+        <div class="idx-title">雨に咲く花</div>
+        <div class="idx-sub">Flower in the Rain — TOKYO</div>
+      </div>
+      <div class="idx-date">2020.01.28</div>
+    </a>
+    <a class="idx-row" href="photograph/001.html" data-photo="001" data-meta="TOKYO · 2019.06.18">
+      <div class="idx-no">001</div>
+      <div>
+        <div class="idx-title">都市の端に</div>
+        <div class="idx-sub">At the Edge of the City — TOKYO</div>
+      </div>
+      <div class="idx-date">2019.06.18</div>
+    </a>
+  </section>
+
+  <nav class="nf-nav nf-nav--compact-sp">
+    <span class="left" id="idxRange">INDEX · 001 — 003</span>
+    <span class="links">
+      <a href="index.html">TOP</a>
+      <a href="photograph.html" class="current">PHOTOGRAPH</a>
+      <a href="essay.html">ESSAY</a>
+      <a href="lab.html">LAB</a>
+      <a href="about.html">ABOUT</a>
+    </span>
+  </nav>
+</main>
+
+<script defer>
+/* PHOTOGRAPH index — runtime only (no build step, no manifest).
+
+   For every `.idx-row[data-photo="NNN"]` the JS tries to fetch
+   `photograph/NNN.html`:
+
+     - 404 / network error  → the row is hidden (`display: none`).
+     - otherwise            → DOMParser reads the detail page and fills:
+         .idx-title ← .art-title-ja / .p2-title-ja
+         .idx-sub   ← .art-title-en / .p2-title-en  +  ' — ' + PLACE
+         .idx-date  ← YYYY.MM.DD (from the detail page's [data-photo-file])
+         thumbnail  ← the same image file
+
+   The header count (`#idxCount`) and footer range (`#idxRange`) are
+   derived from the NNN values whose fetches succeeded.
+
+   Hardcoded values already inside each row are used as fallbacks while
+   the fetch is in flight, so the page degrades gracefully even if the
+   browser blocks fetch() (e.g. strict `file://` mode — open via a local
+   server or Safari for full rendering). */
+(function(){
+  var DIR = 'images/photograph/';
+  var NAME_RE = /^(\d{3})_(\d{2})_([A-Za-z]+)_(\d{4})_(\d{2})(\d{2})\.jpg$/i;
+
+  function stripJa(text){
+    return (text || '').replace(/[\s\u3000]+/g, '');
+  }
+  function stripEn(el){
+    if (!el) return '';
+    var clone = el.cloneNode(true);
+    // Drop the decorative trailing period.
+    clone.querySelectorAll('.dot').forEach(function(n){ n.remove(); });
+    return (clone.textContent || '').replace(/\s+/g, ' ').trim();
+  }
+
+  function parseDetail(html){
+    var doc = new DOMParser().parseFromString(html, 'text/html');
+    if (!doc) return null;
+    var jaEl = doc.querySelector('.art-title-ja, .p2-title-ja');
+    var enEl = doc.querySelector('.art-title-en, .p2-title-en');
+    var figEl = doc.querySelector('[data-photo-file]');
+
+    var file = figEl ? figEl.getAttribute('data-photo-file') : '';
+    var place = '', y = '', mo = '', d = '';
+    if (file) {
+      var m = NAME_RE.exec(file);
+      if (m) { place = m[3].toUpperCase(); y = m[4]; mo = m[5]; d = m[6]; }
+    }
+    return {
+      ja:    stripJa(jaEl && jaEl.textContent),
+      en:    stripEn(enEl),
+      file:  file,
+      place: place,
+      y: y, mo: mo, d: d
+    };
+  }
+
+  function applyToRow(row, data){
+    var titleEl = row.querySelector('.idx-title');
+    if (titleEl && data.ja) titleEl.textContent = data.ja;
+
+    var subEl = row.querySelector('.idx-sub');
+    if (subEl) {
+      var en    = data.en || '';
+      var place = data.place || '';
+      if (en && place)      subEl.textContent = en + ' — ' + place;
+      else if (en)          subEl.textContent = en;
+      else if (place)       subEl.textContent = place;
+    }
+
+    var dateEl = row.querySelector('.idx-date');
+    if (dateEl && data.y) dateEl.textContent = data.y + '.' + data.mo + '.' + data.d;
+
+    var thumb = document.createElement('span');
+    thumb.className = 'idx-row-thumb';
+    if (data.file) {
+      var img = document.createElement('img');
+      img.alt = '';
+      img.loading = 'lazy';
+      img.src = DIR + data.file;
+      img.onerror = function(){
+        thumb.classList.remove('has-image');
+        if (img.parentNode) thumb.removeChild(img);
+      };
+      thumb.appendChild(img);
+      thumb.classList.add('has-image');
+    }
+    row.appendChild(thumb);
+    var imgEl = thumb.querySelector('img');
+    if (imgEl) imgEl.addEventListener('load', scheduleThumbLayout);
+  }
+
+  var THUMB_MQ = window.matchMedia('(max-width: 720px)');
+
+  function textOverlapsThumb(row, thumbW){
+    row.classList.remove('idx-row--no-thumb');
+    void row.offsetHeight;
+    var thumbLeft = row.getBoundingClientRect().right - thumbW;
+    var texts = row.querySelectorAll('.idx-title, .idx-sub, .idx-date');
+    for (var i = 0; i < texts.length; i++) {
+      var el = texts[i];
+      if (el.scrollWidth > el.clientWidth + 1) return true;
+      if (el.getBoundingClientRect().right > thumbLeft + 1) return true;
+    }
+    return false;
+  }
+
+  function adjustIdxThumbs(){
+    var rows = document.querySelectorAll('#idxList .idx-row');
+    if (!THUMB_MQ.matches) {
+      rows.forEach(function(row){ row.classList.remove('idx-row--no-thumb'); });
+      return;
+    }
+    rows.forEach(function(row){
+      var thumb = row.querySelector('.idx-row-thumb.has-image');
+      if (!thumb || row.style.display === 'none') {
+        row.classList.remove('idx-row--no-thumb');
+        return;
+      }
+      var thumbW = parseFloat(getComputedStyle(row).getPropertyValue('--idx-thumb-w')) || 112;
+      if (textOverlapsThumb(row, thumbW)) {
+        row.classList.add('idx-row--no-thumb');
+      }
+    });
+  }
+
+  var thumbLayoutTimer;
+  function scheduleThumbLayout(){
+    clearTimeout(thumbLayoutTimer);
+    thumbLayoutTimer = setTimeout(adjustIdxThumbs, 50);
+  }
+
+  function init(){
+    var rows = Array.prototype.slice.call(document.querySelectorAll('#idxList .idx-row'));
+    if (!rows.length) return;
+
+    var countEl = document.getElementById('idxCount');
+    var rangeEl = document.getElementById('idxRange');
+    var pad = function(v){ return ('000' + v).slice(-3); };
+
+    var liveNos = [];
+
+    var jobs = rows.map(function(row){
+      var no = row.getAttribute('data-photo');
+      if (!no) return Promise.resolve();
+
+      return fetch('photograph/' + no + '.html', { method: 'GET' })
+        .then(function(res){
+          if (!res.ok) throw new Error('not found');
+          return res.text();
+        })
+        .then(function(html){
+          var data = parseDetail(html);
+          if (!data) throw new Error('parse failed');
+          row.setAttribute('href', 'photograph/' + no + '.html');
+          applyToRow(row, data);
+          liveNos.push(no);
+        })
+        .catch(function(){
+          row.style.display = 'none';
+          row.setAttribute('aria-hidden', 'true');
+        });
+    });
+
+    Promise.all(jobs).then(function(){
+      var nums = liveNos.map(function(n){ return parseInt(n, 10); })
+                        .filter(function(v){ return !isNaN(v); });
+      if (nums.length) {
+        var min = Math.min.apply(null, nums);
+        var max = Math.max.apply(null, nums);
+        if (countEl) countEl.textContent = pad(max);
+        if (rangeEl) rangeEl.textContent = 'INDEX · ' + pad(min) + ' — ' + pad(max);
+      } else {
+        if (countEl) countEl.textContent = '000';
+        if (rangeEl) rangeEl.textContent = 'INDEX · —';
+      }
+      scheduleThumbLayout();
+    });
+
+    window.addEventListener('resize', scheduleThumbLayout);
+    if (THUMB_MQ.addEventListener) {
+      THUMB_MQ.addEventListener('change', scheduleThumbLayout);
+    } else if (THUMB_MQ.addListener) {
+      THUMB_MQ.addListener(scheduleThumbLayout);
+    }
+    if (window.ResizeObserver) {
+      var list = document.getElementById('idxList');
+      if (list) new ResizeObserver(scheduleThumbLayout).observe(list);
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init, { once: true });
+  } else {
+    init();
+  }
+})();
+</script>
+</body>
+</html>
