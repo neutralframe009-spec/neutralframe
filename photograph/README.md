@@ -7,8 +7,10 @@
 
 | ファイル | レイアウト | 用途 |
 |----------|-----------|------|
-| `templateA.html` | Single（見出し → 写真＋本文縦積み） | 長めのキャプション・一枚絵向け |
-| `templateB.html` | Split（写真左・テキスト右） | 2カラムの読みやすい構成 |
+| `templateA.html` | PC: Single（見出し→写真→メタ｜本文）/ SP: 縦積み | 長めのキャプション・一枚絵向け |
+| `templateB.html` | PC: Split（写真左・テキスト右）/ SP: 縦積み | 2カラムの読みやすい構成 |
+
+SP（720px以下）では templateA・B とも同じ縦積み（写真＋メタ → 見出し → 本文）。
 
 - **templateA** = 旧 Pattern 1（`photograph-003.html` 相当）
 - **templateB** = 旧 Pattern 2（`photograph-002.html` 相当）

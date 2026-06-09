@@ -30,12 +30,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/styles.v15.css">
+<link rel="stylesheet" href="../assets/styles.v16.css">
 </head>
 <body>
 <!--
-  templateA — Single layout (Pattern 1)
-  見出し → 写真＋キャプション縦積み（.p1-figure）
+  templateA — PC: Single（見出し→写真→メタ｜本文）/ SP: templateB と同じ縦積み
 
   新規作成手順:
   1. このファイルをコピーして NNN.html にリネーム（NNN = 3桁ゼロ埋め）
@@ -49,26 +48,31 @@
     <a href="../index.html" class="en" style="font-weight:700; letter-spacing:0.02em; font-size:16px; color:var(--ink);">Neutral Frame<span class="dot">.</span></a>
   </header>
 
-  <h1 class="art-title-ja">日本語タイトル</h1>
-  <div class="art-title-en">English title<span class="dot">.</span></div>
-
-  <figure id="fig-main" class="p1-figure" data-photo-file="NNN_01_place_YYYY_MMDD.jpg" data-photo-dir="../images/photograph/">
-    <div class="top-photo">
-      <img alt="">
-    </div>
-    <figcaption class="p1-fig-caption">
-      <div class="p1-fig-meta">
+  <section class="p2-wrap art-layout-a" style="margin-top:36px;">
+    <div class="art-layout-a-media">
+      <div class="p2-photo" id="fig-main" data-photo-file="NNN_01_place_YYYY_MMDD.jpg" data-photo-dir="../images/photograph/">
+        <div class="top-photo">
+          <img alt="">
+        </div>
+      </div>
+      <div class="p1-fig-meta art-layout-a-meta">
         FIG. <span data-photo-fig></span><br>
         <span data-photo-date></span><br>
         <span data-photo-place></span>
       </div>
-      <div class="p1-body">
+    </div>
+    <div class="art-layout-a-head">
+      <h1 class="p2-title-ja">日本語タイトル</h1>
+      <div class="p2-title-en">English title<span class="dot">.</span></div>
+    </div>
+    <div class="p2-text">
+      <div class="p2-body">
         <p>本文 1 段落目。</p>
         <p>本文 2 段落目。</p>
         <p>本文 3 段落目。</p>
       </div>
-    </figcaption>
-  </figure>
+    </div>
+  </section>
 
   <nav class="nf-nav">
     <span class="left">← <a href="../photograph.html">INDEX</a></span>
@@ -81,6 +85,6 @@
     </span>
   </nav>
 </main>
-<script src="../assets/photograph-page.v15.js" defer></script>
+<script src="../assets/photograph-page.v16.js" defer></script>
 </body>
 </html>
