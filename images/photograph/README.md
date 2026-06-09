@@ -60,7 +60,7 @@ XXX_FF_place_YYYY_MMDD.jpg
 | ヘッダ `N° XXX`                     | `N° 003`          | `XXX`                     |
 | ヘッダ `PLACE`                      | `TOKYO`            | `place`（大文字化）       |
 | ヘッダ `YYYY.MM.DD`                 | `2026.04.17`       | `YYYY` + `MMDD`           |
-| キャプション `FIG. FF`              | `FIG. 01`          | `FF`                      |
+| キャプション `FIG. NNN`             | `FIG. 003`         | `NNN`（記事番号）         |
 | キャプション `MONTH, YEAR`          | `APRIL, 2026`      | `MMDD` の月 + `YYYY`      |
 
 ## 推奨スペック
